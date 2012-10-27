@@ -1,0 +1,12 @@
+*.swp
+.DS_Store
+Thumbs.db
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+local.properties
+.classpath
+.project

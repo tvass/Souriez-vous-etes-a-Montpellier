@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@+id/startApp"
+        android:title="@string/startApp"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/stopApp"
+        android:title="@string/stopApp"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    
+    <item android:id="@+id/submitApp"
+        android:title="@string/submitApp"
+        android:orderInCategory="100"
+        android:showAsAction="never" />    
+    
+</menu>

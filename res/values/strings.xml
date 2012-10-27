@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="app_name">Souriez-vous-etes-a-Montpellier</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main">Souriez à Montpellier !</string>
+    <string name="latitude">Latitude (N/A)</string>
+    <string name="longitude">Longitude (N/A)</string>
+    <string name="menu_settings">Settings</string>
+    <string name="alerte">Aucune alerte.</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_carte">CarteActivity</string>
+	<string name="startApp">Démarrer les alertes</string>
+	<string name="stopApp">Couper les alertes</string>
+	<string name="submitApp">Suggérer un emplacement</string>
+</resources>
