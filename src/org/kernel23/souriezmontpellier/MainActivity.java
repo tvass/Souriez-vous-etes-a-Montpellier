@@ -6,82 +6,52 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
-
-import android.app.Activity;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-
-import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 
 public class MainActivity extends  MapActivity {
-
+	
 	MapView mapView;
 	MapController mc;
-	GeoPoint p;
-	GeoPoint cctv;
-	
-	LocationManager lm;
-	LocationListener locationListener;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
      
-        
-       	LocationManager locationManager;
-    	locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    	Location loc;
-    	if ( locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-    		loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    	}else{
-    		loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-    	}
-    	
         mapView = (MapView) findViewById(R.id.mapView);
         mc = mapView.getController();
     
-        double lat = loc.getLatitude();
-        double lng = loc.getLongitude();
-        p = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
+
+        mapView = (MapView) findViewById(R.id.mapView);
+        final MyLocationOverlay myLocationOverlay = new MyLocationOverlay(this, mapView);
+        mapView.getOverlays().add(myLocationOverlay);
+        mapView.postInvalidate();
+        myLocationOverlay.enableCompass();
+        myLocationOverlay.enableMyLocation();
+        myLocationOverlay.runOnFirstFix(new Runnable() {
+            public void run() {
+        	mc.animateTo(myLocationOverlay.getMyLocation());
+        	mc.setZoom(17);
+            }
+        });
         
-        mc.animateTo(p);
-        mc.setZoom(15);
         mapView.invalidate();
         
         List<Overlay> mapOverlays = mapView.getOverlays();
-        
-        Drawable Mydrawable = this.getResources().getDrawable(R.drawable.me);
-        HelloItemizedOverlay Myitemizedoverlay = new HelloItemizedOverlay(Mydrawable,this);
-        OverlayItem Myoverlayitem = new OverlayItem(p, "", "Vous êtes ici !");
-        Myitemizedoverlay.addOverlay(Myoverlayitem);       
-        
-        mapOverlays.add(Myitemizedoverlay);
-        
-       
+
         Drawable drawable = this.getResources().getDrawable(R.drawable.cctv);
         HelloItemizedOverlay itemizedoverlay = new HelloItemizedOverlay(drawable,this);    
 
@@ -112,18 +82,6 @@ public class MainActivity extends  MapActivity {
         } catch (IOException e) {
        	 e.printStackTrace();
         }
-     
-        /*
-        Button next = (Button) findViewById(R.id.button1);
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), MainActivity.class);
-                startActivityForResult(myIntent, 0);
-            }
-
-        });
-        */
-        
          
     }
 
@@ -155,21 +113,8 @@ public class MainActivity extends  MapActivity {
 	public void onResume() {
     	super.onResume();
     	
-    	LocationManager locationManager;
-    	locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    	Location loc;
-    	if ( locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-    		loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    	}else{
-    		loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-    	}
     	
-/*    	
-  		TextView lat = (TextView)findViewById(R.id.textView1);
-        lat.setText(String.format("%f",loc.getLatitude()));
-  		TextView longi = (TextView)findViewById(R.id.textView2);
-  		longi.setText(String.format("%f",loc.getLongitude()));
-*/
+
    }
   
     @Override
@@ -189,6 +134,8 @@ public class MainActivity extends  MapActivity {
         	this.MystopService(mapView);
             return true;       
         case R.id.submitApp:
+        	 Intent myIntent = new Intent(this,SubmitApp.class);
+             startActivity(myIntent);
             return true;               
         default:
             return super.onOptionsItemSelected(item);
@@ -200,5 +147,5 @@ public class MainActivity extends  MapActivity {
 		// TODO Auto-generated method stub
 		return false;
 	}
-    
+	
 }
