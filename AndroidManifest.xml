@@ -33,14 +33,7 @@
         <service
             android:name=".LocationService"
             android:enabled="true" />
-
-        <activity
-            android:name=".SubmitApp"
-            android:label="@string/title_activity_submit_app" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.kernel23.souriezmontpellier.MainActivity" />
-        </activity>
+        
     </application>
 
 </manifest>

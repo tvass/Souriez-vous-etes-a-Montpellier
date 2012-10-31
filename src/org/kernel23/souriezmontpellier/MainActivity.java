@@ -132,11 +132,7 @@ public class MainActivity extends  MapActivity {
             return true;
         case R.id.stopApp:
         	this.MystopService(mapView);
-            return true;       
-        case R.id.submitApp:
-        	 Intent myIntent = new Intent(this,SubmitApp.class);
-             startActivity(myIntent);
-            return true;               
+            return true;                 
         default:
             return super.onOptionsItemSelected(item);
         }
