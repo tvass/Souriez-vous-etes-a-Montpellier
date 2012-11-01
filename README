@@ -2,10 +2,12 @@ Welcome to "Souriez vous etes a Montpellier !"
 
 >> Contact: kbour23@gmail.com
 
-Application Android (4.0/ICS) qui notifie l'utilisateur via une alerte sonore
+Application Android qui notifie l'utilisateur via une alerte sonore
 lors d'un passage a proximite d'une camera de videosurveillance a Montpellier
 (Herault, Languedoc Roussillon). 
  
+Android application that notifies the user when he is near a CCTV 
+camera in Montpellier (Herault, Languedoc Roussillon, France).
 
 =====================================================================
 GNU GPL, version 3
