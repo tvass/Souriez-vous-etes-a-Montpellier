@@ -14,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -41,13 +42,13 @@ public class LocationService extends Service implements LocationListener {
  @Override
  	public int onStartCommand(Intent intent, int flags, int startId) {
 	 
-		int count = 0;
-	 
-	 
+	 int count = 0;
  	 InputStream is = getResources().openRawResource(R.raw.montpellier_cctv_gps_database);
+ 	 BufferedReader reader = null;
+ 	
      try
      {
-    	 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+    	 reader = new BufferedReader(new InputStreamReader(is));
     	 String line;
     
      while ((line = reader.readLine()) != null )
@@ -70,10 +71,19 @@ public class LocationService extends Service implements LocationListener {
      }
      catch (FileNotFoundException e)
      {
-    	 e.printStackTrace();
+    	 Log.e("LocationService.java", "FileNotFoundException", e);
 
      } catch (IOException e) {
-    	 e.printStackTrace();
+    	 Log.e("LocationService.java", "IOException", e);
+     }
+     finally{
+         try {
+     if(reader !=null){
+                        reader.close();
+                  }
+         } catch (IOException e) {
+         	Log.e("MainActivity", "Erreur lors de la fermeture du fichier de données", e);
+        }
      }
 	
 	 return START_STICKY;
@@ -107,10 +117,10 @@ public class LocationService extends Service implements LocationListener {
      }
      catch (FileNotFoundException e)
      {
-    	 e.printStackTrace();
+    	 Log.e("LocationService.java", "FileNotFoundException", e);
 
      } catch (IOException e) {
-    	 e.printStackTrace();
+    	 Log.e("LocationService.java", "IOException", e);
      }
 	
 }

@@ -1,18 +1,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
+    
+<item android:id="@+id/optionalerte" 
+      android:title="Alertes">
+    
+<menu android:id="@+id/sousmenualerte">  
     <item android:id="@+id/startApp"
         android:title="@string/startApp"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:orderInCategory="100"/>
 
     <item android:id="@+id/stopApp"
         android:title="@string/stopApp"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
-    
-    <item android:id="@+id/submitApp"
-        android:title="@string/submitApp"
-        android:orderInCategory="100"
-        android:showAsAction="never" />    
-    
+        android:orderInCategory="100"/>  
+</menu>  
+</item>
+<item android:id="@+id/optionsat" 
+      android:title="@string/optionCarte">
+
+
+<menu android:id="@+id/sousmenusat">  
+    <item android:id="@+id/startSat"
+        android:title="@string/startSat"
+        android:orderInCategory="100"/>
+
+    <item android:id="@+id/stopSat"
+        android:title="@string/stopSat"
+        android:orderInCategory="100"/>  
+</menu>  
+</item>
 </menu>

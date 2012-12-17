@@ -10,7 +10,7 @@ import android.content.BroadcastReceiver;
 public class MyBroadcastReceiver extends BroadcastReceiver {
 	  @Override
 	  public void onReceive(Context context, Intent intent) {
-	    Toast.makeText(context, "Souriez vous êtes filmés !",
+	    Toast.makeText(context, "@string/alerte",
 	    Toast.LENGTH_LONG).show();
 
 	    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);

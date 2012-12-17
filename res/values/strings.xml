@@ -1,11 +1,11 @@
 <resources>
 
-    <string name="app_name">Souriez-vous-etes-a-Montpellier</string>
+    <string name="app_name">Souriez à Montpellier !</string>
     <string name="title_activity_main">Souriez à Montpellier !</string>
-    <string name="longitude">Longitude (N/A)</string>
     <string name="startApp">Démarrer les alertes</string>
     <string name="stopApp">Couper les alertes</string>
-    <string name="submitApp">Suggérer un emplacement</string>
-    <string name="title_activity_submit_app">Souriez à Montpellier !</string>
-
+    <string name="optionCarte">Carte</string>
+    <string name="startSat">Activer vue satellite</string>
+    <string name="stopSat">Désactiver vue satellite</string>    
+    <string name="alerte">Souriez vous êtes filmé !</string>  
 </resources>

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,21 +55,32 @@ public class MainActivity extends  MapActivity {
 
         Drawable drawable = this.getResources().getDrawable(R.drawable.cctv);
         HelloItemizedOverlay itemizedoverlay = new HelloItemizedOverlay(drawable,this);    
-
         InputStream is = getResources().openRawResource(R.raw.montpellier_cctv_gps_database);
+        BufferedReader reader = null;
+        
         try
         {
-       	 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+       	 reader = new BufferedReader(new InputStreamReader(is));
        	 String line;
+       	 String desc;
+       	 int i;
        
         while ((line = reader.readLine()) != null )
         {
        	 	String [] rowData = line.split(";");
+       	 	desc = "";
 
    				Double myLat = Double.parseDouble(rowData[6]);
    				Double myLong = Double.parseDouble(rowData[7]);
    				GeoPoint geopoint = new GeoPoint((int)(myLat*1E6), (int)(myLong*1E6));
-   				OverlayItem overlayitem2 = new OverlayItem(geopoint, "Informations", rowData[2]+"\n"+rowData[3]+"\n"+rowData[4]+"\n"+rowData[5]);
+   				
+   				for (i=2; i<6; i++) {
+   				   if(rowData[i].length() > 0 ) {
+   					   desc += rowData[i]+"\n";
+   				   }
+   				}
+   				
+   				OverlayItem overlayitem2 = new OverlayItem(geopoint, "Informations", desc);
    				itemizedoverlay.addOverlay(overlayitem2);
         }
         
@@ -77,12 +89,22 @@ public class MainActivity extends  MapActivity {
         }
         catch (FileNotFoundException e)
         {
-       	 e.printStackTrace();
-
+       	 Log.e("MainActivity.java", "FileNotFoundException", e);
         } catch (IOException e) {
-       	 e.printStackTrace();
+       	 Log.e("MainActivity.java", "IOException", e);
+
         }
-         
+        finally{
+            try {
+        if(reader !=null){
+                           reader.close();
+                     }
+            } catch (IOException e) {
+            	Log.e("MainActivity", "Erreur lors de la fermeture du fichier de données", e);
+           }
+        }
+
+
     }
 
     public void MystartService(View view) {
@@ -132,11 +154,18 @@ public class MainActivity extends  MapActivity {
             return true;
         case R.id.stopApp:
         	this.MystopService(mapView);
-            return true;       
-        case R.id.submitApp:
-        	 Intent myIntent = new Intent(this,SubmitApp.class);
-             startActivity(myIntent);
-            return true;               
+            return true;
+        case R.id.stopSat:
+            mapView.setSatellite(false);
+            mapView.invalidate();
+            return true;
+
+       case R.id.startSat:
+            mapView.setSatellite(true);
+            mapView.invalidate();
+            return true;   
+            
+            
         default:
             return super.onOptionsItemSelected(item);
         }
